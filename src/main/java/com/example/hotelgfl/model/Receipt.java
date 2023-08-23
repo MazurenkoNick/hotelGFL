@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class Receipt {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "check_in", nullable = false)
@@ -22,7 +21,8 @@ public class Receipt {
     @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
 
-    @OneToOne
+    @MapsId
+    @OneToOne(optional = false)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
