@@ -14,4 +14,7 @@ public class Renter extends User {
 
     @OneToMany(mappedBy = "renter", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Discount> discounts;
+
+    @OneToMany(mappedBy = "renter")
+    private List<Reservation> reservations;
 }
