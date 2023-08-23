@@ -1,9 +1,13 @@
 package com.example.hotelgfl.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "room_classes")
+@Getter
+@Setter
 public class RoomClass {
 
     @Id
