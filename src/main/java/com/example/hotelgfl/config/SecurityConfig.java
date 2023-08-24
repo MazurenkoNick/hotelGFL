@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -16,22 +18,15 @@ public class SecurityConfig {
                 .securityContext(customizer -> customizer.requireExplicitSave(false))
                 .authorizeHttpRequests(customizer ->
                         customizer
-                                .requestMatchers("/form-login", "/login", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(login -> login
-                        .loginPage("/form-login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true) // Redirect after successful login
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/form-login?logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID") // todo: reconfigure for jwt token
-                );
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance(); // todo: replace with BCryptPasswordEncoder
     }
 }

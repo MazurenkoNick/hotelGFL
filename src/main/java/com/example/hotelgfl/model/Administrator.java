@@ -33,6 +33,13 @@ public class Administrator extends User {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Reservation> reservations;
 
+    @ManyToMany
+    @JoinTable(
+            name = "admin_roles",
+            joinColumns = @JoinColumn(name = "administrator_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
     public Administrator(String firstName, String lastName, String passportId, String email,String phoneNumber,
                          Rank rank, double salary, String password, List<Reservation> reservations) {
 

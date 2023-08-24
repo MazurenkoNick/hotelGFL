@@ -35,3 +35,16 @@ VALUES
     (11, 11, '2000-02-02', 11, 11, '2000-02-05'),
     (12, 12, '2000-02-02', 12, 12, '2000-02-05'),
     (13, 13, '2000-02-02', 12, 13, '2000-02-05');
+
+INSERT INTO roles(id, name)
+VALUES
+    (10, 'DEFAULT'),
+    (11, 'ADMIN');
+
+INSERT INTO admin_roles(role_id, administrator_id)
+VALUES
+    (10, 10),
+    (10, 11),
+    (11, 12),
+    (11, 13),
+    (10, 14);
