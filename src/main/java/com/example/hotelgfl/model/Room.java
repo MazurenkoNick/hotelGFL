@@ -24,7 +24,7 @@ public class Room {
     private Long roomNumber;
 
     @Column(name = "bed_count", nullable = false)
-    private int becCount;
+    private int bedCount;
 
     @Column(name = "day_price", nullable = false)
     private double dayPrice;
@@ -40,9 +40,9 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
     List<Reservation> reservations;
 
-    public Room(Long roomNumber, int becCount, double dayPrice, boolean isFree, RoomClass roomClass) {
+    public Room(Long roomNumber, int bedCount, double dayPrice, boolean isFree, RoomClass roomClass) {
         this.roomNumber = roomNumber;
-        this.becCount = becCount;
+        this.bedCount = bedCount;
         this.dayPrice = dayPrice;
         this.isFree = isFree;
         this.roomClass = roomClass;
