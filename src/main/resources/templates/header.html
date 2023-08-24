@@ -1,0 +1,11 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">GFL HOTEL</a>
+                <a class="navbar-brand" th:if="${#authentication.getName() != 'anonymousUser'}" th:href="@{/logout}">Log Out</a>
+                <p class="navbar-brand" th:if="${#authentication.getName() != 'anonymousUser'}" th:text="${#authentication.getName()}"/>
+            </div>
+        </div>
+    </nav>
+</div>

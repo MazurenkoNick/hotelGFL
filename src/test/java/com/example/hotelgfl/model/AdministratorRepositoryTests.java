@@ -6,7 +6,6 @@ import com.example.hotelgfl.repository.ReservationRepository;
 import com.example.hotelgfl.repository.RoomRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -42,13 +43,13 @@ public class AdministratorRepositoryTests {
 
         em.flush();
 
-        Assertions.assertTrue(reservationRepository.findById(1L).isPresent());
+        assertTrue(reservationRepository.findById(1L).isPresent());
         var actual = reservationRepository.findById(1L).get();
-        Assertions.assertEquals(expected.getAdministrator(), actual.getAdministrator());
-        Assertions.assertEquals(expected.getRoom(), actual.getRoom());
-        Assertions.assertEquals(expected.getRenter(), actual.getRenter());
-        Assertions.assertEquals(expected.getFromDateTime(), actual.getFromDateTime());
-        Assertions.assertEquals(expected.getToDateTime(), actual.getToDateTime());
+        assertEquals(expected.getAdministrator(), actual.getAdministrator());
+        assertEquals(expected.getRoom(), actual.getRoom());
+        assertEquals(expected.getRenter(), actual.getRenter());
+        assertEquals(expected.getFromDateTime(), actual.getFromDateTime());
+        assertEquals(expected.getToDateTime(), actual.getToDateTime());
     }
 
     @Test
@@ -60,6 +61,6 @@ public class AdministratorRepositoryTests {
 
         em.flush();
 
-        Assertions.assertFalse(reservationRepository.findById(id).isPresent());
+        assertFalse(reservationRepository.findById(id).isPresent());
     }
 }

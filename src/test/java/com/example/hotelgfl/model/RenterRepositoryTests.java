@@ -3,7 +3,6 @@ package com.example.hotelgfl.model;
 import com.example.hotelgfl.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +10,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -44,13 +45,13 @@ public class RenterRepositoryTests {
 
         em.flush();
 
-        Assertions.assertTrue(reservationRepository.findById(1L).isPresent());
+        assertTrue(reservationRepository.findById(1L).isPresent());
         var actual = reservationRepository.findById(1L).get();
-        Assertions.assertEquals(expected.getAdministrator(), actual.getAdministrator());
-        Assertions.assertEquals(expected.getRoom(), actual.getRoom());
-        Assertions.assertEquals(expected.getRenter(), actual.getRenter());
-        Assertions.assertEquals(expected.getFromDateTime(), actual.getFromDateTime());
-        Assertions.assertEquals(expected.getToDateTime(), actual.getToDateTime());
+        assertEquals(expected.getAdministrator(), actual.getAdministrator());
+        assertEquals(expected.getRoom(), actual.getRoom());
+        assertEquals(expected.getRenter(), actual.getRenter());
+        assertEquals(expected.getFromDateTime(), actual.getFromDateTime());
+        assertEquals(expected.getToDateTime(), actual.getToDateTime());
     }
 
     @Test
@@ -65,11 +66,11 @@ public class RenterRepositoryTests {
 
         em.flush();
 
-        Assertions.assertTrue(discountRepository.findById(1L).isPresent());
+        assertTrue(discountRepository.findById(1L).isPresent());
         var actualDiscount = discountRepository.findById(1L).get();
-        Assertions.assertEquals(expectedDiscount.getRenter(), actualDiscount.getRenter());
-        Assertions.assertEquals(expectedDiscount.getPercent(), actualDiscount.getPercent());
-        Assertions.assertEquals(expectedDiscount.getRoomClass(), actualDiscount.getRoomClass());
+        assertEquals(expectedDiscount.getRenter(), actualDiscount.getRenter());
+        assertEquals(expectedDiscount.getPercent(), actualDiscount.getPercent());
+        assertEquals(expectedDiscount.getRoomClass(), actualDiscount.getRoomClass());
     }
 
     @Test
@@ -81,7 +82,7 @@ public class RenterRepositoryTests {
 
         em.flush();
 
-        Assertions.assertFalse(discountRepository.findById(discountId).isPresent());
+        assertFalse(discountRepository.findById(discountId).isPresent());
     }
 
     @Test
@@ -94,8 +95,8 @@ public class RenterRepositoryTests {
 
         em.remove(renter);
 
-        Assertions.assertFalse(renterRepository.findById(renterId).isPresent());
-        Assertions.assertFalse(discountRepository.findById(discountId).isPresent());
-        Assertions.assertTrue(reservationRepository.findById(reservationId).isPresent());
+        assertFalse(renterRepository.findById(renterId).isPresent());
+        assertFalse(discountRepository.findById(discountId).isPresent());
+        assertTrue(reservationRepository.findById(reservationId).isPresent());
     }
 }
