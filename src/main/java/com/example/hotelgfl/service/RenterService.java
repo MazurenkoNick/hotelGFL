@@ -1,0 +1,32 @@
+package com.example.hotelgfl.service;
+
+import com.example.hotelgfl.dto.RenterDto;
+import com.example.hotelgfl.mapper.RenterMapper;
+import com.example.hotelgfl.model.Renter;
+import com.example.hotelgfl.repository.RenterRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class RenterService {
+    
+    private final RenterRepository renterRepository;
+    private final RenterMapper renterMapper;
+
+    @Transactional
+    public RenterDto create(RenterDto renterDto) {
+        Renter renter = renterMapper.dtoToInstance(renterDto);
+        renterRepository.save(renter);
+        return renterMapper.instanceToDto(renter);
+    }
+
+    @Transactional
+    public RenterDto remove(String email) {
+        Renter renter = renterRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+        renterRepository.delete(renter);
+        return renterMapper.instanceToDto(renter);
+    }
+}

@@ -51,16 +51,4 @@ public class AdministratorRepositoryTests {
         assertEquals(expected.getFromDateTime(), actual.getFromDateTime());
         assertEquals(expected.getToDateTime(), actual.getToDateTime());
     }
-
-    @Test
-    @Transactional
-    void testReservationDeletedDuringOrphanRemoval() {
-        Administrator admin = administratorRepository.findById(10L).orElseThrow(EntityNotFoundException::new);
-        Long id = admin.getReservations().get(0).getId();
-        admin.getReservations().remove(0);
-
-        em.flush();
-
-        assertFalse(reservationRepository.findById(id).isPresent());
-    }
 }

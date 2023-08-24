@@ -19,8 +19,8 @@ public class AdministratorService {
     @Transactional
     public AdministratorDto create(AdministratorDto administratorDto) {
         Administrator admin = administratorMapper.dtoToInstance(administratorDto);
-        Administrator persistedAdmin = administratorRepository.save(admin);
-        return administratorMapper.instanceToDto(persistedAdmin);
+        administratorRepository.save(admin);
+        return administratorMapper.instanceToDto(admin);
     }
 
     @Transactional

@@ -16,10 +16,6 @@ import java.util.Objects;
 @Setter
 public class Renter extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
     @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Discount> discounts;
 
