@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/administrator")
@@ -24,5 +21,13 @@ public class AdministratorController {
     public ResponseEntity<AdministratorDto> create(@Valid @RequestBody AdministratorDto administratorDto) {
         AdministratorDto persistedDto = administratorService.create(administratorDto);
         return new ResponseEntity<>(persistedDto, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/{email}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AdministratorDto> delete(@PathVariable("email") String email) {
+        AdministratorDto deletedDto = administratorService.delete(email);
+        return ResponseEntity.ok(deletedDto);
     }
 }

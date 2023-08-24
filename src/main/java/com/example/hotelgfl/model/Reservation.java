@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
@@ -28,17 +30,20 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "administrator_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Administrator administrator;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "renter_id", nullable = false)
+    @JoinColumn(name = "renter_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Renter renter;
 
-    @OneToOne(mappedBy = "reservation", orphanRemoval = true)
+    @OneToOne(mappedBy = "reservation", orphanRemoval = true, cascade = CascadeType.ALL)
     private Receipt receipt;
 
     public Reservation(LocalDateTime fromDateTime, LocalDateTime toDateTime, Administrator administrator, Room room, Renter renter, Receipt receipt) {

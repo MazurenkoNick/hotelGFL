@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -31,10 +33,11 @@ public class Room {
     private boolean isFree;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "room_class_id", nullable = false)
+    @JoinColumn(name = "room_class_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private RoomClass roomClass;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
     List<Reservation> reservations;
 
     public Room(Long roomNumber, int becCount, double dayPrice, boolean isFree, RoomClass roomClass) {

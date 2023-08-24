@@ -26,7 +26,7 @@ public class Administrator extends User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "administrator", orphanRemoval = true,
+    @OneToMany(mappedBy = "administrator",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Reservation> reservations;
 
