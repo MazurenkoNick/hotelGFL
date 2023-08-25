@@ -1,6 +1,7 @@
 package com.example.hotelgfl.service;
 
 import com.example.hotelgfl.dto.AdministratorDto;
+import com.example.hotelgfl.dto.ResponseAdministratorDto;
 import com.example.hotelgfl.mapper.AdministratorMapper;
 import com.example.hotelgfl.model.Administrator;
 import com.example.hotelgfl.repository.AdministratorRepository;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +60,15 @@ public class AdministratorService {
         administrator.setPhoneNumber(administratorDto.getPhoneNumber());
 
         return administratorMapper.instanceToDto(administrator);
+    }
+
+    public ResponseAdministratorDto get(String email) {
+        return administratorRepository.findAdministratorDtoByEmail(email)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<ResponseAdministratorDto> getAll() {
+        return administratorRepository.findAllAdministratorDtos();
     }
 
     private void updateAuthenticationUsername(String email) {

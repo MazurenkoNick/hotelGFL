@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RenterService {
@@ -41,5 +43,14 @@ public class RenterService {
         renter.setPhoneNumber(renterDto.getPhoneNumber());
 
         return renterMapper.instanceToDto(renter);
+    }
+
+    public RenterDto get(String email) {
+        return renterRepository.findRenterDtoByEmail(email)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<RenterDto> getAll() {
+        return renterRepository.findAllRenterDtos();
     }
 }

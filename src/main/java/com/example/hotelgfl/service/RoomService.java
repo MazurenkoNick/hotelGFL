@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -46,6 +48,15 @@ public class RoomService {
         room.setDayPrice(roomDto.getDayPrice());
 
         return roomMapper.instanceToDto(room);
+    }
+
+    public RoomDto get(Long roomNumber) {
+        return roomRepository.findRoomDtoByNumber(roomNumber)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<RoomDto> getAll() {
+        return roomRepository.findAllRoomDtos();
     }
 
     /**

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/renter")
 @RequiredArgsConstructor
@@ -34,5 +36,17 @@ public class RenterController {
         return ResponseEntity.ok(updatedDto);
     }
 
-    // TODO: ADD FUNCTIONALITY TO READ RENTERS. ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS
+    @GetMapping("/{email}")
+    public ResponseEntity<RenterDto> get(@PathVariable("email") String email) {
+        RenterDto renterDto = renterService.get(email);
+        return ResponseEntity.ok(renterDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RenterDto>> getAll() {
+        List<RenterDto> renterDtos = renterService.getAll();
+        return ResponseEntity.ok(renterDtos);
+    }
+
+    // TODO: ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS & DISCOUNTS
 }

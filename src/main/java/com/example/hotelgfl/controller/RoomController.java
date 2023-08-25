@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/room")
 @RequiredArgsConstructor
@@ -38,5 +40,15 @@ public class RoomController {
         return ResponseEntity.ok(updatedDto);
     }
 
-    // TODO: ADD FUNCTIONALITY TO READ ROOMS.
+    @GetMapping("/{roomNumber}")
+    public ResponseEntity<RoomDto> get(@PathVariable("roomNumber") Long roomNumber) {
+        RoomDto roomDto = roomService.get(roomNumber);
+        return ResponseEntity.ok(roomDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RoomDto>> getAll() {
+        List<RoomDto> roomDtos = roomService.getAll();
+        return ResponseEntity.ok(roomDtos);
+    }
 }
