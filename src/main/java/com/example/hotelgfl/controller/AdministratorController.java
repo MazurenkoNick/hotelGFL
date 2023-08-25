@@ -23,11 +23,20 @@ public class AdministratorController {
         return new ResponseEntity<>(persistedDto, HttpStatus.CREATED);
     }
 
-    @DeleteMapping
-    @RequestMapping("/{email}")
+    @DeleteMapping("/{email}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<AdministratorDto> delete(@PathVariable("email") String email) {
         AdministratorDto deletedDto = administratorService.delete(email);
         return ResponseEntity.ok(deletedDto);
     }
+
+    @PutMapping("/{email}")
+    @PreAuthorize("authentication.name == #email or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AdministratorDto> update(@PathVariable("email") String email,
+                                                   @Valid @RequestBody AdministratorDto administratorDto) {
+        AdministratorDto updatedDto = administratorService.update(email, administratorDto);
+        return ResponseEntity.ok(updatedDto);
+    }
+
+    // TODO: ADD FUNCTIONALITY TO READ ADMINISTRATORS.
 }

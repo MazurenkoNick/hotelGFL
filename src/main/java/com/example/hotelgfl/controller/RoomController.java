@@ -26,4 +26,6 @@ public class RoomController {
         RoomDto removedDto = roomService.remove(roomNumber);
         return ResponseEntity.ok(removedDto);
     }
+
+    // TODO: ADD FUNCTIONALITY TO READ & UPDATE ROOMS.
 }

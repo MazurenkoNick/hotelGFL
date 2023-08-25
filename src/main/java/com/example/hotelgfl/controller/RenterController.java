@@ -26,4 +26,6 @@ public class RenterController {
         RenterDto removed = renterService.remove(email);
         return ResponseEntity.ok(removed);
     }
+
+    // TODO: ADD FUNCTIONALITY TO READ & UPDATE RENTERS. ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS
 }
