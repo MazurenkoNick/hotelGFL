@@ -27,5 +27,12 @@ public class RenterController {
         return ResponseEntity.ok(removed);
     }
 
-    // TODO: ADD FUNCTIONALITY TO READ & UPDATE RENTERS. ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS
+    @PutMapping("/{email}")
+    public ResponseEntity<RenterDto> update(@PathVariable("email") String email,
+                                            @Valid @RequestBody RenterDto renterDto) {
+        RenterDto updatedDto = renterService.update(email, renterDto);
+        return ResponseEntity.ok(updatedDto);
+    }
+
+    // TODO: ADD FUNCTIONALITY TO READ RENTERS. ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS
 }

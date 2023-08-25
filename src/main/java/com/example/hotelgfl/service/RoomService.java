@@ -34,6 +34,20 @@ public class RoomService {
         return roomMapper.instanceToDto(room);
     }
 
+    @Transactional
+    public RoomDto update(Long roomNumber, RoomDto roomDto) {
+        Room room = roomRepository.findByRoomNumber(roomNumber)
+                .orElseThrow(EntityNotFoundException::new);
+        RoomClass roomClass = getRoomClass(roomDto.getRoomClassName());
+        room.setRoomClass(roomClass);
+        room.setRoomNumber(roomDto.getRoomNumber());
+        room.setFree(roomDto.getIsFree());
+        room.setBedCount(roomDto.getBedCount());
+        room.setDayPrice(roomDto.getDayPrice());
+
+        return roomMapper.instanceToDto(room);
+    }
+
     /**
      * {@link Room} entity will be converted from the RoomDto.
      * If the roomClassName retrieved from the {@link RoomDto} is not blank,
@@ -51,10 +65,14 @@ public class RoomService {
         if (roomClassName.isBlank()) {
             throw new IllegalArgumentException("`Room Class` name can't be blank!");
         }
-        RoomClass roomClass = roomClassRepository.findByName(roomClassName)
-                .orElse(new RoomClass(roomClassName));
+        RoomClass roomClass = getRoomClass(roomClassName);
 
         room.setRoomClass(roomClass);
         return room;
+    }
+
+    private RoomClass getRoomClass(String roomClassName) {
+        return roomClassRepository.findByName(roomClassName)
+                .orElse(new RoomClass(roomClassName));
     }
 }

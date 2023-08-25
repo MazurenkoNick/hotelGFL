@@ -29,4 +29,17 @@ public class RenterService {
         renterRepository.delete(renter);
         return renterMapper.instanceToDto(renter);
     }
+
+    @Transactional
+    public RenterDto update(String email, RenterDto renterDto) {
+        Renter renter = renterRepository.findByEmail(email)
+                .orElseThrow(EntityNotFoundException::new);
+        renter.setEmail(renterDto.getEmail());
+        renter.setFirstName(renterDto.getFirstName());
+        renter.setLastName(renterDto.getLastName());
+        renter.setPassportId(renterDto.getPassportId());
+        renter.setPhoneNumber(renterDto.getPhoneNumber());
+
+        return renterMapper.instanceToDto(renter);
+    }
 }
