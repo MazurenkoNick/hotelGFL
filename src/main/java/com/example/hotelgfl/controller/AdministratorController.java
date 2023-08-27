@@ -20,21 +20,21 @@ public class AdministratorController {
     private final AdministratorService administratorService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AdministratorDto> create(@Valid @RequestBody AdministratorDto administratorDto) {
         AdministratorDto persistedDto = administratorService.create(administratorDto);
         return new ResponseEntity<>(persistedDto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{email}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AdministratorDto> delete(@PathVariable("email") String email) {
         AdministratorDto deletedDto = administratorService.delete(email);
         return ResponseEntity.ok(deletedDto);
     }
 
     @PutMapping("/{email}")
-    @PreAuthorize("authentication.name == #email or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<AdministratorDto> update(@PathVariable("email") String email,
                                                    @Valid @RequestBody AdministratorDto administratorDto) {
         AdministratorDto updatedDto = administratorService.update(email, administratorDto);
@@ -42,12 +42,14 @@ public class AdministratorController {
     }
 
     @GetMapping("/{email}")
+    @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<ResponseAdministratorDto> get(@PathVariable("email") String email) {
         ResponseAdministratorDto administratorDto = administratorService.get(email);
         return ResponseEntity.ok(administratorDto);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ResponseAdministratorDto>> getAll() {
         List<ResponseAdministratorDto> administratorDtos = administratorService.getAll();
         return ResponseEntity.ok(administratorDtos);

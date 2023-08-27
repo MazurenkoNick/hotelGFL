@@ -51,7 +51,6 @@ public class Room {
     public void addReservation(Reservation reservation) {
         Room currentRoom = reservation.getRoom();
         if (currentRoom != null && currentRoom != this) {
-            // todo: add custom exception
             throw new IllegalArgumentException("Reservation already has a room!");
         }
         reservation.setRoom(this);

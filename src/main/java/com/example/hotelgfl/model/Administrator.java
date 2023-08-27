@@ -59,7 +59,6 @@ public class Administrator extends User {
     public void addReservation(Reservation reservation) {
         Administrator currentAdmin = reservation.getAdministrator();
         if (currentAdmin != null && currentAdmin != this) {
-            // todo: add custom exception
             throw new IllegalArgumentException("Reservation already has an administrator!");
         }
         reservation.setAdministrator(this);

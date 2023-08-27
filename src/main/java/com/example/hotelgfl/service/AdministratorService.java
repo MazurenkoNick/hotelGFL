@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -50,8 +51,7 @@ public class AdministratorService {
             String newAuthenticatedEmail = administratorDto.getEmail();
             updateAuthenticationUsername(newAuthenticatedEmail);
         }
-        administrator.setRank(administratorDto.getRank());
-        administrator.setSalary(administratorDto.getSalary());
+        updateRankAndSalary(administrator, administratorDto);
         administrator.setPassword(administratorDto.getPassword());
         administrator.setFirstName(administratorDto.getFirstName());
         administrator.setLastName(administratorDto.getLastName());
@@ -72,16 +72,35 @@ public class AdministratorService {
     }
 
     private void updateAuthenticationUsername(String email) {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication oldAuthentication = context.getAuthentication();
+        Authentication oldAuthentication = getAuthentication();
         Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(
                 email, oldAuthentication.getCredentials(), oldAuthentication.getAuthorities()
         );
+        SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(updatedAuthentication);
     }
 
+    private void updateRankAndSalary(Administrator toUpdate, AdministratorDto dto) {
+        if (hasRole("ADMIN")) {
+            toUpdate.setRank(dto.getRank());
+            toUpdate.setSalary(dto.getSalary());
+        }
+    }
+
+    private boolean hasRole(String role) {
+        return getAuthentication()
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(authority -> authority.equals("ROLE_" + role));
+    }
+
     private String getEmailFromSecurityContext() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        return context.getAuthentication().getName();
+        return getAuthentication().getName();
+    }
+
+    private Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+
     }
 }

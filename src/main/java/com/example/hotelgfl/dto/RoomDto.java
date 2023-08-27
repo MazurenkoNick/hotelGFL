@@ -18,10 +18,12 @@ public class RoomDto {
     private Long roomNumber;
 
     @Min(1)
-    private int bedCount;
+    @NotNull
+    private Integer bedCount;
 
     @Min(0)
-    private double dayPrice;
+    @NotNull
+    private Double dayPrice;
 
     @NotNull
     private Boolean isFree = true;

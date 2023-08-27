@@ -9,10 +9,10 @@ VALUES
 
 INSERT INTO renters(id, EMAIL, FIRST_NAME, LAST_NAME, PASSPORT_ID, PHONE_NUM)
 VALUES
-    (10, 'n@gmail.com', 'first1', 'last1', '1234543', '2902928'),
-    (11, 'm@gmail.com', 'first2', 'last2', '1324543', '2902929'),
-    (12, 'l@gmail.com', 'first3', 'last3', '2134543', '2902930'),
-    (13, 'k@gmail.com', 'first4', 'last4', '2314543', '2902931');
+    (10, 'n@gmail.com', 'First', 'Last', '1234543', '2902928'),
+    (11, 'm@gmail.com', 'Inokentii', 'Inokentiev', '1324543', '2902929'),
+    (12, 'l@gmail.com', 'Alex', 'Shaldenko', '2134543', '2902930'),
+    (13, 'k@gmail.com', 'Peter', 'Parker', '2314543', '2902931');
 
 INSERT INTO discounts(id, PERCENT, RENTER_ID, ROOM_CLASS_ID)
 VALUES
@@ -23,11 +23,11 @@ VALUES
 
 INSERT INTO administrators(id, salary, admin_rank, email, first_name, last_name, passport_id, password, phone_num)
 VALUES
-    (10, 9999, 'JUNIOR', 'n1@gmail.com', 'first1', 'last1', '1234530', 'Qwerty123', '3102928'),
-    (11, 15000, 'MIDDLE', 'n2@gmail.com', 'first2', 'last2', '1234531', 'Qwerty123', '3102929'),
-    (12, 20000, 'SENIOR', 'n3@gmail.com', 'first3', 'last3', '1234532', 'Qwerty123', '3102930'),
-    (13, 10000, 'JUNIOR', 'n4@gmail.com', 'first4', 'last4', '1234533', 'Qwerty123', '3102931'),
-    (14, 13500, 'MIDDLE', 'n5@gmail.com', 'first5', 'last5', '1234534', 'Qwerty123', '3102932');
+    (10, 9999, 'JUNIOR', 'n1@gmail.com', 'First', 'Last', '1234530', 'Qwerty123', '3102928'),
+    (11, 15000, 'MIDDLE', 'n2@gmail.com', 'Ivan', 'Ivanenko', '1234531', 'Qwerty123', '3102929'),
+    (12, 20000, 'SENIOR', 'n3@gmail.com', 'Peter', 'Petrenko', '1234532', 'Qwerty123', '3102930'),
+    (13, 10000, 'JUNIOR', 'n4@gmail.com', 'Mykola', 'Mykolenko', '1234533', 'Qwerty123', '3102931'),
+    (14, 13500, 'MIDDLE', 'n5@gmail.com', 'Viktor', 'Viktorov', '1234534', 'Qwerty123', '3102932');
 
 INSERT INTO reservations(id, administrator_id, from_datetime, renter_id, room_id, to_datetime)
 VALUES

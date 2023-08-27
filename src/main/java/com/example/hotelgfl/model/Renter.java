@@ -50,7 +50,6 @@ public class Renter extends User {
 
     private void assertValidCurrentRenter(Renter currentRenter) {
         if (currentRenter != null && currentRenter != this) {
-            // todo: add custom exception
             throw new IllegalArgumentException("Reservation already has a renter!");
         }
     }

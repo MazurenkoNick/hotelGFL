@@ -19,21 +19,21 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RoomDto> create(@Valid @RequestBody RoomDto roomDto) {
         RoomDto persistedDto = roomService.create(roomDto);
         return new ResponseEntity<>(persistedDto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{roomNumber}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RoomDto> remove(@PathVariable("roomNumber") Long roomNumber) {
         RoomDto removedDto = roomService.remove(roomNumber);
         return ResponseEntity.ok(removedDto);
     }
 
     @PutMapping("/{roomNumber}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RoomDto> update(@PathVariable("roomNumber") Long roomNumber,
                                           @RequestBody RoomDto roomDto) {
         RoomDto updatedDto = roomService.update(roomNumber, roomDto);
