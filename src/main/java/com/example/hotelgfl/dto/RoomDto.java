@@ -25,9 +25,6 @@ public class RoomDto {
     @NotNull
     private Double dayPrice;
 
-    @NotNull
-    private Boolean isFree = true;
-
     @NotBlank
     private String roomClassName;
 }

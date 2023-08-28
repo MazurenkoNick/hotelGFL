@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,10 +41,9 @@ public class RoomService {
     public RoomDto update(Long roomNumber, RoomDto roomDto) {
         Room room = roomRepository.findByRoomNumber(roomNumber)
                 .orElseThrow(EntityNotFoundException::new);
-        RoomClass roomClass = getRoomClass(roomDto.getRoomClassName());
+        RoomClass roomClass = getRoomClass(room.getRoomClass(), roomDto.getRoomClassName());
         room.setRoomClass(roomClass);
         room.setRoomNumber(roomDto.getRoomNumber());
-        room.setFree(roomDto.getIsFree());
         room.setBedCount(roomDto.getBedCount());
         room.setDayPrice(roomDto.getDayPrice());
 
@@ -57,6 +57,17 @@ public class RoomService {
 
     public List<RoomDto> getAll() {
         return roomRepository.findAllRoomDtos();
+    }
+
+    public List<RoomDto> getAllFree() {
+        return roomRepository.findAllFreeRoomDtos();
+    }
+
+    public List<RoomDto> getAllFree(LocalDate from, LocalDate to) {
+        if (isValidDateInterval(from, to)) {
+            return roomRepository.findAllFreeRoomDtos(from, to);
+        }
+        throw new IllegalArgumentException("`from` date can't be after `to` date");
     }
 
     /**
@@ -76,14 +87,21 @@ public class RoomService {
         if (roomClassName.isBlank()) {
             throw new IllegalArgumentException("`Room Class` name can't be blank!");
         }
-        RoomClass roomClass = getRoomClass(roomClassName);
+        RoomClass roomClass = getRoomClass(room.getRoomClass(), roomClassName);
 
         room.setRoomClass(roomClass);
         return room;
     }
 
-    private RoomClass getRoomClass(String roomClassName) {
+    private RoomClass getRoomClass(RoomClass roomClass, String roomClassName) {
+        if (roomClass != null && roomClass.getName().equals(roomClassName)) {
+            return roomClass;
+        }
         return roomClassRepository.findByName(roomClassName)
                 .orElse(new RoomClass(roomClassName));
+    }
+
+    private boolean isValidDateInterval(LocalDate from, LocalDate to) {
+        return to.isAfter(from) || to.isEqual(from);
     }
 }

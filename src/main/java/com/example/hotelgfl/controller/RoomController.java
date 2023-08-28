@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,19 @@ public class RoomController {
     @GetMapping
     public ResponseEntity<List<RoomDto>> getAll() {
         List<RoomDto> roomDtos = roomService.getAll();
+        return ResponseEntity.ok(roomDtos);
+    }
+
+    @GetMapping("/free")
+    public ResponseEntity<List<RoomDto>> getAllFree() {
+        List<RoomDto> roomDtos = roomService.getAllFree();
+        return ResponseEntity.ok(roomDtos);
+    }
+
+    @GetMapping("/free/dates")
+    public ResponseEntity<List<RoomDto>> getAllFree(@RequestParam(value = "from", required = false) LocalDate from,
+                                                    @RequestParam(value = "to", required = false) LocalDate to) {
+        List<RoomDto> roomDtos = roomService.getAllFree(from, to);
         return ResponseEntity.ok(roomDtos);
     }
 }

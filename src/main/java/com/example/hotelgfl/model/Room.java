@@ -29,9 +29,6 @@ public class Room {
     @Column(name = "day_price", nullable = false)
     private double dayPrice;
 
-    @Column(name = "is_free", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
-    private boolean isFree;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "room_class_id")
     @OnDelete(action = OnDeleteAction.SET_NULL)
@@ -40,11 +37,10 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
     List<Reservation> reservations;
 
-    public Room(Long roomNumber, int bedCount, double dayPrice, boolean isFree, RoomClass roomClass) {
+    public Room(Long roomNumber, int bedCount, double dayPrice, RoomClass roomClass) {
         this.roomNumber = roomNumber;
         this.bedCount = bedCount;
         this.dayPrice = dayPrice;
-        this.isFree = isFree;
         this.roomClass = roomClass;
     }
 
