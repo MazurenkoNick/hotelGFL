@@ -1,6 +1,7 @@
 package com.example.hotelgfl.mapper;
 
 import com.example.hotelgfl.dto.ReservationDto;
+import com.example.hotelgfl.dto.ReservationResponseDto;
 import com.example.hotelgfl.model.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,4 +23,13 @@ public interface ReservationMapper {
             @Mapping(source = "to", target = "toDateTime"),
     })
     Reservation dtoToEntity(ReservationDto reservationDto);
+
+    @Mappings({
+            @Mapping(target = "from", source = "fromDateTime"),
+            @Mapping(target = "to", source = "toDateTime"),
+            @Mapping(target = "roomNumber", source = "room.roomNumber"),
+            @Mapping(target = "renterEmail", source = "renter.email"),
+            @Mapping(target = "administratorEmail", source = "administrator.email"),
+    })
+    ReservationResponseDto entityToResponseDto(Reservation reservation);
 }
