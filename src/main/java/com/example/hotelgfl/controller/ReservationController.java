@@ -1,15 +1,13 @@
 package com.example.hotelgfl.controller;
 
 import com.example.hotelgfl.dto.ReservationDto;
+import com.example.hotelgfl.dto.ReservationUpdateDto;
 import com.example.hotelgfl.service.ReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/reservation")
@@ -22,5 +20,12 @@ public class ReservationController {
     public ResponseEntity<ReservationDto> create(@Valid @RequestBody ReservationDto reservationDto) {
         ReservationDto responseDto = reservationService.create(reservationDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservationDto> update(@PathVariable("id") Long id,
+                                                 @Valid @RequestBody ReservationUpdateDto reservationDto) {
+        ReservationDto responseDto = reservationService.update(id, reservationDto);
+        return ResponseEntity.ok(responseDto);
     }
 }

@@ -56,4 +56,16 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "    WHERE res.room = r " +
             "    AND (DATE(res.fromDateTime) <= :to AND DATE(res.toDateTime) >= :from))")
     Optional<RoomDto> findRoomIfFree(Long roomNumber, LocalDate from, LocalDate to);
+
+    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+            "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
+            "FROM Room r " +
+            "WHERE r.roomNumber = :roomNumber " +
+            "AND NOT EXISTS (" +
+            "    SELECT 1 " +
+            "    FROM Reservation res " +
+            "    WHERE res.room = r " +
+            "    AND res.id != :reservationId " +
+            "    AND (DATE(res.fromDateTime) <= :to AND DATE(res.toDateTime) >= :from))")
+    Optional<RoomDto> findRoomIfFreeUpdate(Long reservationId, Long roomNumber, LocalDate from, LocalDate to);
 }

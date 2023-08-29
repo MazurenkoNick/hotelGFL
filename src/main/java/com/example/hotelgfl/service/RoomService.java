@@ -87,6 +87,14 @@ public class RoomService {
         throw new IllegalArgumentException("`from` date can't be after `to` date");
     }
 
+    public boolean isFreeUpdate(Long reservationId, Long roomNumber, LocalDate from, LocalDate to) {
+        if (isValidDateInterval(from, to)) {
+            Optional<RoomDto> room = roomRepository.findRoomIfFreeUpdate(reservationId, roomNumber, from, to);
+            return room.isPresent();
+        }
+        throw new IllegalArgumentException("`from` date can't be after `to` date");
+    }
+
     /**
      * {@link Room} entity will be converted from the RoomDto.
      * If the roomClassName retrieved from the {@link RoomDto} is not blank,
