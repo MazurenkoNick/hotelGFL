@@ -14,12 +14,12 @@ import lombok.Setter;
 @Setter
 public class RenterDto {
 
-    @Pattern(regexp = "[A-Z][a-z]+",
+    @Pattern(regexp = "[A-Z][a-z]+(?:\\s[A-Z][a-z]+)+",
             message = "Must start with a capital letter followed by one or more lowercase letters")
     @NotBlank
     private String firstName;
 
-    @Pattern(regexp = "[A-Z][a-z]+",
+    @Pattern(regexp = "[A-Z][a-z]+(?:\\s[A-Z][a-z]+)+",
             message = "Must start with a capital letter followed by one or more lowercase letters")
     @NotBlank
     private String lastName;

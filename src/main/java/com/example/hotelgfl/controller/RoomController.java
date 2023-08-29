@@ -43,7 +43,7 @@ public class RoomController {
 
     @GetMapping("/{roomNumber}")
     public ResponseEntity<RoomDto> get(@PathVariable("roomNumber") Long roomNumber) {
-        RoomDto roomDto = roomService.get(roomNumber);
+        RoomDto roomDto = roomService.getDto(roomNumber);
         return ResponseEntity.ok(roomDto);
     }
 
@@ -60,8 +60,8 @@ public class RoomController {
     }
 
     @GetMapping("/free/dates")
-    public ResponseEntity<List<RoomDto>> getAllFree(@RequestParam(value = "from", required = false) LocalDate from,
-                                                    @RequestParam(value = "to", required = false) LocalDate to) {
+    public ResponseEntity<List<RoomDto>> getAllFree(@RequestParam(value = "from") LocalDate from,
+                                                    @RequestParam(value = "to") LocalDate to) {
         List<RoomDto> roomDtos = roomService.getAllFree(from, to);
         return ResponseEntity.ok(roomDtos);
     }

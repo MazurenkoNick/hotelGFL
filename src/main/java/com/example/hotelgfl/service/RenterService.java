@@ -20,16 +20,16 @@ public class RenterService {
 
     @Transactional
     public RenterDto create(RenterDto renterDto) {
-        Renter renter = renterMapper.dtoToInstance(renterDto);
+        Renter renter = renterMapper.dtoToEntity(renterDto);
         renterRepository.save(renter);
-        return renterMapper.instanceToDto(renter);
+        return renterMapper.entityToDto(renter);
     }
 
     @Transactional
     public RenterDto remove(String email) {
         Renter renter = renterRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
         renterRepository.delete(renter);
-        return renterMapper.instanceToDto(renter);
+        return renterMapper.entityToDto(renter);
     }
 
     @Transactional
@@ -42,12 +42,19 @@ public class RenterService {
         renter.setPassportId(renterDto.getPassportId());
         renter.setPhoneNumber(renterDto.getPhoneNumber());
 
-        return renterMapper.instanceToDto(renter);
+        return renterMapper.entityToDto(renter);
     }
 
-    public RenterDto get(String email) {
+    public RenterDto getDto(String email) {
         return renterRepository.findRenterDtoByEmail(email)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Renter get(String email) {
+        return renterRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Renter with the given email doesn't exist, email: " + email)
+                ); // todo: add custom RenterNotFoundException
     }
 
     public List<RenterDto> getAll() {

@@ -24,12 +24,12 @@ public class AdministratorDto {
     private String password;
 
     @Pattern(message = "Must start with a capital letter followed by one or more lowercase letters",
-            regexp = "[A-Z][a-z]+")
+            regexp = "[A-Z][a-z]+(?:\\s[A-Z][a-z]+)+")
     @NotBlank
     private String firstName;
 
     @Pattern(message = "Must start with a capital letter followed by one or more lowercase letters",
-            regexp = "[A-Z][a-z]+")
+            regexp = "[A-Z][a-z]+(?:\\s[A-Z][a-z]+)+")
     @NotBlank
     private String lastName;
 

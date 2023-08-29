@@ -44,7 +44,7 @@ public class AdministratorController {
     @GetMapping("/{email}")
     @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<ResponseAdministratorDto> get(@PathVariable("email") String email) {
-        ResponseAdministratorDto administratorDto = administratorService.get(email);
+        ResponseAdministratorDto administratorDto = administratorService.getDto(email);
         return ResponseEntity.ok(administratorDto);
     }
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,9 +51,17 @@ public class RoomService {
         return roomMapper.instanceToDto(room);
     }
 
-    public RoomDto get(Long roomNumber) {
+    public RoomDto getDto(Long roomNumber) {
         return roomRepository.findRoomDtoByNumber(roomNumber)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Room get(Long roomNumber) {
+        return roomRepository.findByRoomNumber(roomNumber)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Room with the given number doesn't exist, number: " + roomNumber
+                        )
+                );
     }
 
     public List<RoomDto> getAll() {
@@ -66,6 +75,14 @@ public class RoomService {
     public List<RoomDto> getAllFree(LocalDate from, LocalDate to) {
         if (isValidDateInterval(from, to)) {
             return roomRepository.findAllFreeRoomDtos(from, to);
+        }
+        throw new IllegalArgumentException("`from` date can't be after `to` date");
+    }
+
+    public boolean isFree(Long roomNumber, LocalDate from, LocalDate to) {
+        if (isValidDateInterval(from, to)) {
+            Optional<RoomDto> room = roomRepository.findRoomIfFree(roomNumber, from, to);
+            return room.isPresent();
         }
         throw new IllegalArgumentException("`from` date can't be after `to` date");
     }

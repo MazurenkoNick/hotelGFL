@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface RenterMapper {
 
-    RenterDto instanceToDto(Renter instance);
-    Renter dtoToInstance(RenterDto renterDto);
+    RenterDto entityToDto(Renter instance);
+    Renter dtoToEntity(RenterDto renterDto);
 }

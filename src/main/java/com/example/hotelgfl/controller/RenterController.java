@@ -38,7 +38,7 @@ public class RenterController {
 
     @GetMapping("/{email}")
     public ResponseEntity<RenterDto> get(@PathVariable("email") String email) {
-        RenterDto renterDto = renterService.get(email);
+        RenterDto renterDto = renterService.getDto(email);
         return ResponseEntity.ok(renterDto);
     }
 
@@ -48,5 +48,5 @@ public class RenterController {
         return ResponseEntity.ok(renterDtos);
     }
 
-    // TODO: ADD FUNCTIONALITY TO MANIPULATE RESERVATIONS & DISCOUNTS
+    // TODO: DISCOUNTS
 }

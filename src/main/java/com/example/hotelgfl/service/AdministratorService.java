@@ -62,8 +62,13 @@ public class AdministratorService {
         return administratorMapper.instanceToDto(administrator);
     }
 
-    public ResponseAdministratorDto get(String email) {
+    public ResponseAdministratorDto getDto(String email) {
         return administratorRepository.findAdministratorDtoByEmail(email)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Administrator get(String email) {
+        return administratorRepository.findByEmail(email)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
@@ -101,6 +106,5 @@ public class AdministratorService {
 
     private Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
-
     }
 }
