@@ -7,7 +7,6 @@ import com.example.hotelgfl.dto.ReservationUpdateDto;
 import com.example.hotelgfl.mapper.ReceiptMapper;
 import com.example.hotelgfl.mapper.ReservationMapper;
 import com.example.hotelgfl.model.*;
-import com.example.hotelgfl.repository.ReceiptRepository;
 import com.example.hotelgfl.repository.ReservationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
     private final ReceiptMapper receiptMapper;
-    private final ReceiptRepository receiptRepository;
 
     @Transactional // todo: think about isolation level
     public ReservationResponseDto create(ReservationDto reservationDto) {
@@ -91,10 +89,6 @@ public class ReservationService {
 
     public ReservationResponseDto get(Long id) {
         return reservationRepository.getReservationResponseDtoById(id);
-    }
-
-    public ReceiptResponse getReceipt(Long id) {
-        return receiptRepository.findReceiptResponseById(id);
     }
 
     private void updateReservationDates(Reservation reservation, LocalDateTime from, LocalDateTime to) {

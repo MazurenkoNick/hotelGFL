@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     @Query("SELECT new com.example.hotelgfl.dto.ReceiptResponse(" +
-            "r.id, r.checkIn, r.checkOut, r.reservation.id, r.totalPrice) " +
+            "r.id, r.checkIn, r.checkOut, r.reservation.id, r.totalPrice, r.reservation.renter.email) " +
             "FROM Receipt r")
     ReceiptResponse findReceiptResponseById(Long id);
 }

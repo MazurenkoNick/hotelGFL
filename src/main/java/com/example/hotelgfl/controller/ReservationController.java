@@ -52,10 +52,4 @@ public class ReservationController {
         ReceiptResponse receipt = reservationService.checkout(id, checkoutDateTime);
         return ResponseEntity.ok(receipt);
     }
-
-    @GetMapping("/{id}/receipt")
-    public ResponseEntity<ReceiptResponse> checkout(@PathVariable("id") Long id) {
-        ReceiptResponse receipt = reservationService.getReceipt(id);
-        return ResponseEntity.ok(receipt);
-    }
 }
