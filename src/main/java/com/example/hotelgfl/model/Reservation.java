@@ -40,7 +40,6 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "renter_id")
-    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Renter renter;
 
     @OneToOne(mappedBy = "reservation", orphanRemoval = true, cascade = CascadeType.ALL)

@@ -1,5 +1,6 @@
 package com.example.hotelgfl.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,11 @@ public class GlobalExceptionHandler {
     public String handleDataIntegrityViolationException(SQLIntegrityConstraintViolationException ex) {
         log.error("Handling constraint violation");
         return "Constraint violation!";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public String handleEntityNotFoundException(EntityNotFoundException exception) {
+        return exception.getMessage();
     }
 }
