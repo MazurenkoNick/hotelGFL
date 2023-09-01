@@ -56,6 +56,7 @@ public class ReservationService {
     public ReservationResponseDto update(Long id, ReservationUpdateDto reservationDto) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
+        assertUpdatable(reservation);
 
         updateReservationRenter(reservation, reservationDto.getRenterEmail());
         updateReservationDates(reservation, reservationDto.getFrom(), reservationDto.getTo());
@@ -67,11 +68,7 @@ public class ReservationService {
     public ReceiptResponse checkout(Long id, LocalDateTime checkoutDateTime) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
-
-        if (reservation.getReceipt() != null) {
-            throw new IllegalArgumentException(
-                    "The reservation is not updatable anymore. The receipt already exists for the reservation, id: " + id);
-        }
+        assertUpdatable(reservation);
 
         // update reservation's final dates (if the guest decides to check out earlier than expected)
         if (checkoutDateTime != null) {
@@ -121,6 +118,14 @@ public class ReservationService {
         if (oldRenter != null && !oldRenter.getEmail().equals(newRenterEmail)) {
             Renter newRenter = renterService.get(newRenterEmail);
             reservation.setRenter(newRenter);
+        }
+    }
+
+    private void assertUpdatable(Reservation reservation) {
+        if (reservation.getReceipt() != null) {
+            throw new IllegalArgumentException(
+                    "The reservation is not updatable anymore. The receipt already exists for the reservation, id: "
+                            + reservation.getId());
         }
     }
 
