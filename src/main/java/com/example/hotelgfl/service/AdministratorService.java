@@ -26,9 +26,9 @@ public class AdministratorService {
 
     @Transactional
     public AdministratorDto create(AdministratorDto administratorDto) {
-        Administrator admin = administratorMapper.dtoToInstance(administratorDto);
+        Administrator admin = administratorMapper.dtoToEntity(administratorDto);
         administratorRepository.save(admin);
-        return administratorMapper.instanceToDto(admin);
+        return administratorMapper.entityToDto(admin);
     }
 
     @Transactional
@@ -36,7 +36,7 @@ public class AdministratorService {
         Administrator administrator = administratorRepository.findByEmail(email)
                 .orElseThrow(EntityNotFoundException::new);
         administratorRepository.delete(administrator);
-        return administratorMapper.instanceToDto(administrator);
+        return administratorMapper.entityToDto(administrator);
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class AdministratorService {
         administrator.setPassportId(administratorDto.getPassportId());
         administrator.setPhoneNumber(administratorDto.getPhoneNumber());
 
-        return administratorMapper.instanceToDto(administrator);
+        return administratorMapper.entityToDto(administrator);
     }
 
     public ResponseAdministratorDto getDto(String email) {

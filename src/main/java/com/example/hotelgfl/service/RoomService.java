@@ -27,7 +27,7 @@ public class RoomService {
     public RoomDto create(RoomDto roomDto) {
         Room room = roomDtoToRoomWithRoomClass(roomDto);
         roomRepository.save(room);
-        return roomMapper.instanceToDto(room);
+        return roomMapper.entityToDto(room);
     }
 
     @Transactional
@@ -35,7 +35,7 @@ public class RoomService {
         Room room = roomRepository.findByRoomNumber(roomNumber)
                 .orElseThrow(EntityNotFoundException::new);
         roomRepository.delete(room);
-        return roomMapper.instanceToDto(room);
+        return roomMapper.entityToDto(room);
     }
 
     @Transactional
@@ -48,7 +48,7 @@ public class RoomService {
         room.setBedCount(roomDto.getBedCount());
         room.setDayPrice(roomDto.getDayPrice());
 
-        return roomMapper.instanceToDto(room);
+        return roomMapper.entityToDto(room);
     }
 
     public RoomDto getDto(Long roomNumber) {
@@ -79,6 +79,9 @@ public class RoomService {
         throw new IllegalArgumentException("`from` date can't be after `to` date");
     }
 
+    /*
+    checks whether all reservations of this room don't include dates from the arguments of this method
+     */
     public boolean isFree(Long roomNumber, LocalDate from, LocalDate to) {
         if (isValidDateInterval(from, to)) {
             Optional<RoomDto> room = roomRepository.findRoomIfFree(roomNumber, from, to);
@@ -87,6 +90,10 @@ public class RoomService {
         throw new IllegalArgumentException("`from` date can't be after `to` date");
     }
 
+    /*
+    checks whether other reservations of this room don't include dates from the arguments of this method
+    (not including the reservation with `reservationId`);
+     */
     public boolean isFreeUpdate(Long reservationId, Long roomNumber, LocalDate from, LocalDate to) {
         if (isValidDateInterval(from, to)) {
             Optional<RoomDto> room = roomRepository.findRoomIfFreeUpdate(reservationId, roomNumber, from, to);
@@ -106,7 +113,7 @@ public class RoomService {
      * @return {@link Room} with RoomClass mapped to it
      */
     private Room roomDtoToRoomWithRoomClass(RoomDto roomDto) {
-        Room room = roomMapper.dtoToInstance(roomDto);
+        Room room = roomMapper.dtoToEntity(roomDto);
         String roomClassName = roomDto.getRoomClassName();
 
         if (roomClassName.isBlank()) {

@@ -1,5 +1,6 @@
 package com.example.hotelgfl.controller;
 
+import com.example.hotelgfl.dto.ReceiptResponse;
 import com.example.hotelgfl.dto.ReservationDto;
 import com.example.hotelgfl.dto.ReservationResponseDto;
 import com.example.hotelgfl.dto.ReservationUpdateDto;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,7 @@ public class ReservationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ReservationResponseDto> update(@PathVariable("id") Long id,
-                                                     @Valid @RequestBody ReservationUpdateDto reservationDto) {
+                                                         @Valid @RequestBody ReservationUpdateDto reservationDto) {
         ReservationResponseDto responseDto = reservationService.update(id, reservationDto);
         return ResponseEntity.ok(responseDto);
     }
@@ -42,5 +44,18 @@ public class ReservationController {
     public ResponseEntity<List<ReservationResponseDto>> getAll() {
         List<ReservationResponseDto> responseDtos = reservationService.getAll();
         return ResponseEntity.ok(responseDtos);
+    }
+
+    @PostMapping("{id}/checkout")
+    public ResponseEntity<ReceiptResponse> checkout(@PathVariable("id") Long id,
+                                                           @RequestParam(required = false) LocalDateTime checkoutDateTime) {
+        ReceiptResponse receipt = reservationService.checkout(id, checkoutDateTime);
+        return ResponseEntity.ok(receipt);
+    }
+
+    @GetMapping("/{id}/receipt")
+    public ResponseEntity<ReceiptResponse> checkout(@PathVariable("id") Long id) {
+        ReceiptResponse receipt = reservationService.getReceipt(id);
+        return ResponseEntity.ok(receipt);
     }
 }

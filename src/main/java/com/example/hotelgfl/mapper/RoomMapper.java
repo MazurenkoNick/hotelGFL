@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 public interface RoomMapper {
 
     @Mapping(target = "roomClassName", source = "roomClass.name")
-    RoomDto instanceToDto(Room instance);
+    RoomDto entityToDto(Room instance);
 
-    Room dtoToInstance(RoomDto roomDto);
+    Room dtoToEntity(RoomDto roomDto);
 }
