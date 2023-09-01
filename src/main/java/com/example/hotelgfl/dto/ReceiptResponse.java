@@ -18,4 +18,5 @@ public class ReceiptResponse {
     private LocalDateTime checkOut;
     private Long reservationId;
     private double totalPrice;
+    private String renterEmail;
 }
