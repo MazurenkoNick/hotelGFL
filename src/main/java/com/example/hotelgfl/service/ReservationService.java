@@ -29,7 +29,7 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
     private final ReceiptMapper receiptMapper;
 
-    @Transactional // todo: think about isolation level
+    @Transactional // todo: think about blocking insertion during update and update during insertion of the reservation
     public ReservationResponseDto create(ReservationDto reservationDto) {
         Renter renter = renterService.get(reservationDto.getRenterEmail());
         Room room = roomService.get(reservationDto.getRoomNumber());
@@ -50,7 +50,7 @@ public class ReservationService {
                 "room number: " + room.getRoomNumber() + ", from: " + from + ", to: " + to);
     }
 
-    @Transactional // todo: think about isolation level
+    @Transactional // todo: think about blocking insertion during update and update during insertion of the reservation
     public ReservationResponseDto update(Long id, ReservationUpdateDto reservationDto) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -70,9 +70,11 @@ public class ReservationService {
 
         // update reservation's final dates (if the guest decides to check out earlier than expected)
         if (checkoutDateTime != null) {
-            if (checkoutDateTime.toLocalDate().isAfter(reservation.getToDateTime().toLocalDate())) {
+            if (checkoutDateTime.toLocalDate().isAfter(reservation.getToDateTime().toLocalDate()) ||
+                checkoutDateTime.isBefore(reservation.getFromDateTime())) {
                 throw new IllegalArgumentException(
-                        "Can't make the check-out when the check-out date is after the interval of the reservation, id: " + id
+                        "Can't make the check-out when the check-out date is after the interval of the reservation" +
+                                "or the check-out date is before the check-in date, id: " + id
                 );
             }
             updateReservationDates(reservation, reservation.getFromDateTime(), checkoutDateTime);
@@ -81,6 +83,14 @@ public class ReservationService {
         Receipt receipt = new Receipt(reservation);
         reservation.setReceipt(receipt);
         return receiptMapper.entityToReceiptResponse(receipt);
+    }
+
+    @Transactional
+    public ReservationResponseDto remove(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        reservationRepository.delete(reservation);
+        return reservationMapper.entityToResponseDto(reservation);
     }
 
     public List<ReservationResponseDto> getAll() {

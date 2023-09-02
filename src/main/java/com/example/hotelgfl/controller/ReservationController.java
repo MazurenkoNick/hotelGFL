@@ -34,6 +34,12 @@ public class ReservationController {
         return ResponseEntity.ok(responseDto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReservationResponseDto> delete(@PathVariable("id") Long id) {
+        ReservationResponseDto responseDto = reservationService.remove(id);
+        return ResponseEntity.ok(responseDto);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ReservationResponseDto> get(@PathVariable("id") Long id) {
         ReservationResponseDto responseDto = reservationService.get(id);
