@@ -9,6 +9,7 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     @Query("SELECT new com.example.hotelgfl.dto.ReceiptResponse(" +
             "r.id, r.checkIn, r.checkOut, r.reservation.id, r.totalPrice, r.reservation.renter.email) " +
-            "FROM Receipt r")
+            "FROM Receipt r " +
+            "WHERE r.id = :id")
     ReceiptResponse findReceiptResponseById(Long id);
 }

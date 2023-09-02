@@ -63,6 +63,11 @@ public class ReservationService {
     }
 
     @Transactional
+    public ReceiptResponse checkout(Long id) {
+        return checkout(id, null);
+    }
+
+    @Transactional
     public ReceiptResponse checkout(Long id, LocalDateTime checkoutDateTime) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -95,6 +100,10 @@ public class ReservationService {
 
     public List<ReservationResponseDto> getAll() {
         return reservationRepository.getAllReservationResponseDtos();
+    }
+
+    public List<ReservationResponseDto> getAllNonCheckedOut() {
+        return reservationRepository.getAllReservationResponseDtosNonCheckedOut();
     }
 
     public ReservationResponseDto get(Long id) {

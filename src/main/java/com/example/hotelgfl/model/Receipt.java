@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 public class Receipt {
 
     @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "check_in", nullable = false)
@@ -26,7 +28,7 @@ public class Receipt {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
     @Column(name = "total_price", nullable = false)
