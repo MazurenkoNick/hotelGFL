@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
@@ -26,4 +27,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "LEFT JOIN r.receipt rec " +
             "WHERE rec IS NULL")
     List<ReservationResponseDto> getAllReservationResponseDtosNonCheckedOut();
+
+    @Query("SELECT DISTINCT r FROM Reservation r " +
+            "LEFT JOIN FETCH r.administrator " +
+            "LEFT JOIN FETCH r.receipt " +
+            "LEFT JOIN FETCH r.room room " +
+            "LEFT JOIN FETCH room.roomClass " +
+            "LEFT JOIN FETCH r.renter ren " +
+            "LEFT JOIN FETCH ren.discounts disc " +
+            "LEFT JOIN FETCH disc.roomClass " +
+            "WHERE r.id = :id"
+    )
+    Optional<Reservation> findByIdFetchDiscounts(Long id);
 }

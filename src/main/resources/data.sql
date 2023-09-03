@@ -18,6 +18,8 @@ VALUES
 INSERT INTO discounts(id, PERCENT, RENTER_ID, ROOM_CLASS_ID)
 VALUES
     (10, 25, 10, 1),
+    (14, 50, 10, 1),
+    (15, 50, 10, 2),
     (11, 15, 11, 2),
     (12, 20, 12, 1),
     (13, 15, 13, 2);

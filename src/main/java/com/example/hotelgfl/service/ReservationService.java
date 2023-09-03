@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class ReservationService {
 
     @Transactional
     public ReceiptResponse checkout(Long id, LocalDateTime checkoutDateTime) {
-        Reservation reservation = reservationRepository.findById(id)
+        Reservation reservation = reservationRepository.findByIdFetchDiscounts(id)
                 .orElseThrow(EntityNotFoundException::new);
         assertUpdatable(reservation);
 
@@ -85,7 +86,8 @@ public class ReservationService {
             updateReservationDates(reservation, reservation.getFromDateTime(), checkoutDateTime);
         }
         // create a receipt for the reservation and save it
-        Receipt receipt = new Receipt(reservation);
+        double totalPrice = countTotalPrice(reservation);
+        Receipt receipt = new Receipt(reservation, totalPrice);
         reservation.setReceipt(receipt);
         return receiptMapper.entityToReceiptResponse(receipt);
     }
@@ -108,6 +110,16 @@ public class ReservationService {
 
     public ReservationResponseDto get(Long id) {
         return reservationRepository.getReservationResponseDtoById(id);
+    }
+
+    private double countTotalPrice(Reservation reservation) {
+        RoomClass roomClass = reservation.getRoom().getRoomClass();
+        Renter renter = reservation.getRenter();
+        Duration duration = Duration.between(reservation.getFromDateTime(), reservation.getToDateTime());
+
+        double daysSpent = (double) duration.toHours() / 24;
+        double discountPercent = renter.useDiscount(roomClass);
+        return (reservation.getRoom().getDayPrice() * daysSpent) * (100 - discountPercent) / 100;
     }
 
     private void updateReservationDates(Reservation reservation, LocalDateTime from, LocalDateTime to) {

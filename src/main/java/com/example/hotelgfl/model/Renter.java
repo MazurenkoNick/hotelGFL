@@ -34,6 +34,21 @@ public class Renter extends User {
         super(firstName, lastName, passportId, email, phoneNumber);
     }
 
+    /**
+     * returns the value (0 - 100) which represents the percentage of the discount for the
+     * `room class` from the argument of the method.
+     * If the discount was found, it would be returned and removed due to {@link CascadeType.REMOVE}.
+     * In other case, the method would return 0.
+     */
+    public double useDiscount(RoomClass roomClass) {
+        Discount discount = discounts.stream()
+                .filter(d -> d.getRoomClass().equals(roomClass))
+                .findFirst()
+                .orElse(null);
+        discounts.remove(discount);
+        return discount == null ? 0 : discount.getPercent();
+    }
+
     public void addReservation(Reservation reservation) {
         Renter currentRenter = reservation.getRenter();
         assertValidCurrentRenter(currentRenter);

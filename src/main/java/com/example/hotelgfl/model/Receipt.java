@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
@@ -34,17 +33,11 @@ public class Receipt {
     @Column(name = "total_price", nullable = false)
     private double totalPrice;
 
-    public Receipt(Reservation reservation) {
+    public Receipt(Reservation reservation, double totalPrice) {
         this.id = reservation.getId();
         this.checkIn = reservation.getFromDateTime();
         this.checkOut = reservation.getToDateTime();
         this.reservation = reservation;
-        this.totalPrice = countTotalPrice(reservation);
-    }
-
-    private double countTotalPrice(Reservation reservation) {
-        Duration duration = Duration.between(reservation.getFromDateTime(), reservation.getToDateTime());
-        double daysSpent = (double) duration.toHours() / 24;
-        return reservation.getRoom().getDayPrice() * daysSpent;
+        this.totalPrice = totalPrice;
     }
 }
