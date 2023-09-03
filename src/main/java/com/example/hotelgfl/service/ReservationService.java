@@ -87,9 +87,8 @@ public class ReservationService {
         }
         // create a receipt for the reservation and save it
         double totalPrice = countTotalPrice(reservation);
-        Receipt receipt = new Receipt(reservation, totalPrice);
-        reservation.setReceipt(receipt);
-        return receiptMapper.entityToReceiptResponse(receipt);
+        reservation.createReceipt(totalPrice);
+        return receiptMapper.entityToReceiptResponse(reservation.getReceipt());
     }
 
     @Transactional

@@ -62,6 +62,14 @@ public class Reservation {
         this.renter = renter;
     }
 
+    public void createReceipt(double totalPrice) {
+        if (receipt != null) {
+            throw new IllegalArgumentException("Receipt has already been added for this reservation");
+        }
+        Receipt receipt = new Receipt(this, totalPrice);
+        setReceipt(receipt);
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
