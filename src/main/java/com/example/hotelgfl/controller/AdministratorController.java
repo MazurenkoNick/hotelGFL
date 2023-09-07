@@ -2,6 +2,7 @@ package com.example.hotelgfl.controller;
 
 import com.example.hotelgfl.dto.AdministratorDto;
 import com.example.hotelgfl.dto.ResponseAdministratorDto;
+import com.example.hotelgfl.dto.UpdateAdministratorDto;
 import com.example.hotelgfl.service.AdministratorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class AdministratorController {
     @PutMapping("/{email}")
     @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<AdministratorDto> update(@PathVariable("email") String email,
-                                                   @Valid @RequestBody AdministratorDto administratorDto) {
+                                                   @Valid @RequestBody UpdateAdministratorDto administratorDto) {
         AdministratorDto updatedDto = administratorService.update(email, administratorDto);
         return ResponseEntity.ok(updatedDto);
     }

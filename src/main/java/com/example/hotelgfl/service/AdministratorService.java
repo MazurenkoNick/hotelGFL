@@ -2,6 +2,7 @@ package com.example.hotelgfl.service;
 
 import com.example.hotelgfl.dto.AdministratorDto;
 import com.example.hotelgfl.dto.ResponseAdministratorDto;
+import com.example.hotelgfl.dto.UpdateAdministratorDto;
 import com.example.hotelgfl.mapper.AdministratorMapper;
 import com.example.hotelgfl.model.Administrator;
 import com.example.hotelgfl.repository.AdministratorRepository;
@@ -40,7 +41,7 @@ public class AdministratorService {
     }
 
     @Transactional
-    public AdministratorDto update(String email, AdministratorDto administratorDto) {
+    public AdministratorDto update(String email, UpdateAdministratorDto administratorDto) {
         Administrator administrator = administratorRepository.findByEmail(email)
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -52,7 +53,6 @@ public class AdministratorService {
             updateAuthenticationUsername(newAuthenticatedEmail);
         }
         updateRankAndSalary(administrator, administratorDto);
-        administrator.setPassword(administratorDto.getPassword());
         administrator.setFirstName(administratorDto.getFirstName());
         administrator.setLastName(administratorDto.getLastName());
         administrator.setEmail(administratorDto.getEmail());
@@ -85,7 +85,7 @@ public class AdministratorService {
         context.setAuthentication(updatedAuthentication);
     }
 
-    private void updateRankAndSalary(Administrator toUpdate, AdministratorDto dto) {
+    private void updateRankAndSalary(Administrator toUpdate, UpdateAdministratorDto dto) {
         if (hasRole("ADMIN")) {
             toUpdate.setRank(dto.getRank());
             toUpdate.setSalary(dto.getSalary());
