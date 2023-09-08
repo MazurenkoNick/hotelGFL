@@ -1,6 +1,5 @@
 package com.example.hotelgfl.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +14,9 @@ import java.time.LocalDateTime;
 @Setter
 public class ReservationDto {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull
     private LocalDateTime from;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull
     private LocalDateTime to;
 
