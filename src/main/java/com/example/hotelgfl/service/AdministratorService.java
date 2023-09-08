@@ -7,6 +7,7 @@ import com.example.hotelgfl.mapper.AdministratorMapper;
 import com.example.hotelgfl.model.Administrator;
 import com.example.hotelgfl.repository.AdministratorRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,7 +34,10 @@ public class AdministratorService {
     }
 
     @Transactional
-    public AdministratorDto delete(String email) {
+    public AdministratorDto delete(HttpSession session, String email) {
+        if (getAuthentication().getName().equals(email)) {
+            session.invalidate();
+        }
         Administrator administrator = administratorRepository.findByEmail(email)
                 .orElseThrow(EntityNotFoundException::new);
         administratorRepository.delete(administrator);

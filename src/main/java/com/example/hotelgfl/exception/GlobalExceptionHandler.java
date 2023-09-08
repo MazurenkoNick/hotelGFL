@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         log.error("Handling method argument not valid exception");
+        log.error(ex.getMessage());
         return ex.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(

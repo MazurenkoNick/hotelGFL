@@ -4,6 +4,7 @@ import com.example.hotelgfl.dto.AdministratorDto;
 import com.example.hotelgfl.dto.ResponseAdministratorDto;
 import com.example.hotelgfl.dto.UpdateAdministratorDto;
 import com.example.hotelgfl.service.AdministratorService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,9 +29,9 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AdministratorDto> delete(@PathVariable("email") String email) {
-        AdministratorDto deletedDto = administratorService.delete(email);
+    @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
+    public ResponseEntity<AdministratorDto> delete(HttpSession session, @PathVariable("email") String email) {
+        AdministratorDto deletedDto = administratorService.delete(session, email);
         return ResponseEntity.ok(deletedDto);
     }
 
@@ -43,14 +44,12 @@ public class AdministratorController {
     }
 
     @GetMapping("/{email}")
-    @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<ResponseAdministratorDto> get(@PathVariable("email") String email) {
         ResponseAdministratorDto administratorDto = administratorService.getDto(email);
         return ResponseEntity.ok(administratorDto);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ResponseAdministratorDto>> getAll() {
         List<ResponseAdministratorDto> administratorDtos = administratorService.getAll();
         return ResponseEntity.ok(administratorDtos);
