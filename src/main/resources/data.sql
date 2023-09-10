@@ -52,3 +52,6 @@ VALUES
     (11, 12),
     (11, 13),
     (10, 14);
+
+INSERT INTO receipts(receipts.total_price, receipts.check_in, receipts.check_out, receipts.reservation_id)
+VALUES (449.9775, '2000-02-02 00:00:00', '2000-02-05 00:00:00', 10);

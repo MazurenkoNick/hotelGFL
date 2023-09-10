@@ -40,7 +40,7 @@ public class RoomRepositoryTests {
     @MethodSource("findAllRoomDtosSource")
     void findAllRoomDtosTest(List<RoomDto> expected) {
         List<RoomDto> actual = roomRepository.findAllRoomDtos();
-        assertThat(actual).containsAll(expected);
+        assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     static Stream<Arguments> findAllRoomDtosSource() {
@@ -59,7 +59,7 @@ public class RoomRepositoryTests {
     @MethodSource("findAllFreeRoomDtosSource")
     void findAllFreeRoomDtosTest(List<RoomDto> expected) {
         List<RoomDto> actual = roomRepository.findAllFreeRoomDtos();
-        assertThat(actual).containsAll(expected);
+        assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     static Stream<Arguments> findAllFreeRoomDtosSource() {

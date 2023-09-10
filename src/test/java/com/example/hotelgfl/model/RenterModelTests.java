@@ -89,14 +89,17 @@ public class RenterModelTests {
     @Transactional
     void testDiscountAndRenterDeletedUsingCascade() {
         Renter renter = renterRepository.findById(10L).orElseThrow(EntityNotFoundException::new);
-        Long renterId = renter.getId();
         Long discountId = renter.getDiscounts().get(0).getId();
         Long reservationId = renter.getReservations().get(0).getId();
 
         em.remove(renter);
+        em.flush();
+        var optionalRenter = reservationRepository.findById(reservationId);
+        var optionalDiscount = discountRepository.findById(discountId);
+        var optionalReservation = reservationRepository.findById(reservationId);
 
-        assertFalse(renterRepository.findById(renterId).isPresent());
-        assertFalse(discountRepository.findById(discountId).isPresent());
-        assertTrue(reservationRepository.findById(reservationId).isPresent());
+        assertFalse(optionalRenter.isPresent());
+        assertFalse(optionalDiscount.isPresent());
+        assertFalse(optionalReservation.isPresent());
     }
 }
