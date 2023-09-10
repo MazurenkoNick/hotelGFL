@@ -35,7 +35,7 @@ public class AdministratorService {
 
     @Transactional
     public AdministratorDto delete(HttpSession session, String email) {
-        if (getAuthentication().getName().equals(email)) {
+        if (getEmailFromSecurityContext().equals(email)) {
             session.invalidate();
         }
         Administrator administrator = administratorRepository.findByEmail(email)
