@@ -38,7 +38,7 @@ public class AdministratorService {
         if (getEmailFromSecurityContext().equals(email)) {
             session.invalidate();
         }
-        Administrator administrator = administratorRepository.findByEmail(email)
+        Administrator administrator = administratorRepository.findByEmail(email, Administrator.class)
                 .orElseThrow(EntityNotFoundException::new);
         administratorRepository.delete(administrator);
         return administratorMapper.entityToDto(administrator);
@@ -46,7 +46,7 @@ public class AdministratorService {
 
     @Transactional
     public AdministratorDto update(String email, UpdateAdministratorDto administratorDto) {
-        Administrator administrator = administratorRepository.findByEmail(email)
+        Administrator administrator = administratorRepository.findByEmail(email, Administrator.class)
                 .orElseThrow(EntityNotFoundException::new);
 
         // if the user who updates the administrator and the administrator are the same people,
@@ -66,18 +66,18 @@ public class AdministratorService {
         return administratorMapper.entityToDto(administrator);
     }
 
-    public ResponseAdministratorDto getDto(String email) {
-        return administratorRepository.findAdministratorDtoByEmail(email)
+    public ResponseAdministratorDto get(String email, Class<ResponseAdministratorDto> cls) {
+        return administratorRepository.findByEmail(email, cls)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     public Administrator get(String email) {
-        return administratorRepository.findByEmail(email)
+        return administratorRepository.findByEmail(email, Administrator.class)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     public List<ResponseAdministratorDto> getAll() {
-        return administratorRepository.findAllAdministratorDtos();
+        return administratorRepository.findAllBy(ResponseAdministratorDto.class);
     }
 
     private void updateAuthenticationUsername(String email) {

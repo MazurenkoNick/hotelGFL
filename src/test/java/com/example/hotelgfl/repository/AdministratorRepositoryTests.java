@@ -23,7 +23,7 @@ public class AdministratorRepositoryTests {
     @ParameterizedTest
     @MethodSource("findAdministratorDtoByEmailSource")
     void findAdministratorDtoByEmailTest(String email, ResponseAdministratorDto expected) {
-        Optional<ResponseAdministratorDto> actual = administratorRepository.findAdministratorDtoByEmail(email);
+        Optional<ResponseAdministratorDto> actual = administratorRepository.findByEmail(email, ResponseAdministratorDto.class);
         assertThat(actual.orElse(null)).isEqualTo(expected);
     }
 

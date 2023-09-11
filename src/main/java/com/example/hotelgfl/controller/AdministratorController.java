@@ -45,7 +45,7 @@ public class AdministratorController {
 
     @GetMapping("/{email}")
     public ResponseEntity<ResponseAdministratorDto> get(@PathVariable("email") String email) {
-        ResponseAdministratorDto administratorDto = administratorService.getDto(email);
+        ResponseAdministratorDto administratorDto = administratorService.get(email, ResponseAdministratorDto.class);
         return ResponseEntity.ok(administratorDto);
     }
 
