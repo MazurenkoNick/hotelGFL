@@ -2,11 +2,12 @@ package com.example.hotelgfl.dto;
 
 import com.example.hotelgfl.model.Rank;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Getter
 @Setter
 public class AdministratorDto {
