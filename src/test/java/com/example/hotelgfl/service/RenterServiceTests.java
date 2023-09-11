@@ -13,6 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,7 @@ public class RenterServiceTests {
     @Test
     void updateTest() {
         Renter renter = new Renter("first", "last", "12345", "first@gmail.com", "12345");
-        when(renterRepository.findByEmail(anyString())).thenReturn(Optional.of(renter));
+        when(renterRepository.findByEmail(anyString(), any())).thenReturn(Optional.of(renter));
         RenterDto expected = new RenterDto("First", "Last", "54321", "54321", "last@gmail.com");
 
         renterService.update("first@gmail.com", expected);

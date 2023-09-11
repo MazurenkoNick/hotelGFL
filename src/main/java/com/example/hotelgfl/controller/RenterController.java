@@ -1,6 +1,7 @@
 package com.example.hotelgfl.controller;
 
 import com.example.hotelgfl.dto.RenterDto;
+import com.example.hotelgfl.dto.RenterResponseDto;
 import com.example.hotelgfl.service.RenterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,14 +38,14 @@ public class RenterController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<RenterDto> get(@PathVariable("email") String email) {
-        RenterDto renterDto = renterService.getDto(email);
+    public ResponseEntity<RenterResponseDto> get(@PathVariable("email") String email) {
+        RenterResponseDto renterDto = renterService.get(email, RenterResponseDto.class);
         return ResponseEntity.ok(renterDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<RenterDto>> getAll() {
-        List<RenterDto> renterDtos = renterService.getAll();
+    public ResponseEntity<List<RenterResponseDto>> getAll() {
+        List<RenterResponseDto> renterDtos = renterService.getAll(RenterResponseDto.class);
         return ResponseEntity.ok(renterDtos);
     }
 

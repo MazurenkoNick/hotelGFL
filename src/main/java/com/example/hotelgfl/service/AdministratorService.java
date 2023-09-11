@@ -1,7 +1,6 @@
 package com.example.hotelgfl.service;
 
 import com.example.hotelgfl.dto.AdministratorDto;
-import com.example.hotelgfl.dto.ResponseAdministratorDto;
 import com.example.hotelgfl.dto.UpdateAdministratorDto;
 import com.example.hotelgfl.mapper.AdministratorMapper;
 import com.example.hotelgfl.model.Administrator;
@@ -14,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,10 +25,13 @@ public class AdministratorService {
 
     private final AdministratorRepository administratorRepository;
     private final AdministratorMapper administratorMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public AdministratorDto create(AdministratorDto administratorDto) {
         Administrator admin = administratorMapper.dtoToEntity(administratorDto);
+        String hashPassword = passwordEncoder.encode(administratorDto.getPassword());
+        admin.setPassword(hashPassword);
         administratorRepository.save(admin);
         return administratorMapper.entityToDto(admin);
     }
@@ -66,18 +69,17 @@ public class AdministratorService {
         return administratorMapper.entityToDto(administrator);
     }
 
-    public ResponseAdministratorDto get(String email, Class<ResponseAdministratorDto> cls) {
-        return administratorRepository.findByEmail(email, cls)
+    public <T> T get(String email, Class<T> dtoType) {
+        return administratorRepository.findByEmail(email, dtoType)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     public Administrator get(String email) {
-        return administratorRepository.findByEmail(email, Administrator.class)
-                .orElseThrow(EntityNotFoundException::new);
+        return get(email, Administrator.class);
     }
 
-    public List<ResponseAdministratorDto> getAll() {
-        return administratorRepository.findAllBy(ResponseAdministratorDto.class);
+    public <T> List<T> getAll(Class<T> dtoType) {
+        return administratorRepository.findAllBy(dtoType);
     }
 
     private void updateAuthenticationUsername(String email) {

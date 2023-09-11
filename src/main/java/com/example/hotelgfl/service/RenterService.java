@@ -27,14 +27,14 @@ public class RenterService {
 
     @Transactional
     public RenterDto remove(String email) {
-        Renter renter = renterRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+        Renter renter = renterRepository.findByEmail(email, Renter.class).orElseThrow(EntityNotFoundException::new);
         renterRepository.delete(renter);
         return renterMapper.entityToDto(renter);
     }
 
     @Transactional
     public RenterDto update(String email, RenterDto renterDto) {
-        Renter renter = renterRepository.findByEmail(email)
+        Renter renter = renterRepository.findByEmail(email, Renter.class)
                 .orElseThrow(EntityNotFoundException::new);
         renter.setEmail(renterDto.getEmail());
         renter.setFirstName(renterDto.getFirstName());
@@ -45,19 +45,18 @@ public class RenterService {
         return renterMapper.entityToDto(renter);
     }
 
-    public RenterDto getDto(String email) {
-        return renterRepository.findRenterDtoByEmail(email)
-                .orElseThrow(EntityNotFoundException::new);
-    }
-
-    public Renter get(String email) {
-        return renterRepository.findByEmail(email)
+    public <T> T get(String email, Class<T> type) {
+        return renterRepository.findByEmail(email, type)
                 .orElseThrow(() ->
                         new EntityNotFoundException("Renter with the given email doesn't exist, email: " + email)
                 ); // todo: add custom RenterNotFoundException
     }
 
-    public List<RenterDto> getAll() {
-        return renterRepository.findAllRenterDtos();
+    public Renter get(String email) {
+        return get(email, Renter.class);
+    }
+
+    public <T> List<T> getAll(Class<T> type) {
+        return renterRepository.findAllBy(type);
     }
 }

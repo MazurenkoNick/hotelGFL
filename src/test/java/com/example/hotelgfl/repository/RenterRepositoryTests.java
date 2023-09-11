@@ -1,6 +1,6 @@
 package com.example.hotelgfl.repository;
 
-import com.example.hotelgfl.dto.RenterDto;
+import com.example.hotelgfl.dto.RenterResponseDto;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -26,19 +26,19 @@ public class RenterRepositoryTests {
             "m@gmail.com, Inokentii, Inokentiev, 1324543, 2902929"
     })
     public void testFindRenterDtoByEmailTest(String email, String firstName, String lastName, String passportId, String phoneNumber) {
-        Optional<RenterDto> optionalRenterDto = renterRepository.findRenterDtoByEmail(email);
+        Optional<RenterResponseDto> optionalRenterDto = renterRepository.findByEmail(email, RenterResponseDto.class);
         assertThat(optionalRenterDto).isPresent();
-        RenterDto renterDto = optionalRenterDto.get();
-        assertThat(renterDto.getFirstName()).isEqualTo(firstName);
-        assertThat(renterDto.getLastName()).isEqualTo(lastName);
-        assertThat(renterDto.getPassportId()).isEqualTo(passportId);
-        assertThat(renterDto.getPhoneNumber()).isEqualTo(phoneNumber);
+        RenterResponseDto renterDto = optionalRenterDto.get();
+        assertThat(renterDto.firstName()).isEqualTo(firstName);
+        assertThat(renterDto.lastName()).isEqualTo(lastName);
+        assertThat(renterDto.passportId()).isEqualTo(passportId);
+        assertThat(renterDto.phoneNumber()).isEqualTo(phoneNumber);
     }
 
     @ParameterizedTest
     @MethodSource("testFindAllRenterDtosSource")
-    public void testFindAllRenterDtosTest(List<RenterDto> expected) {
-        List<RenterDto> actual = renterRepository.findAllRenterDtos();
+    public void testFindAllRenterDtosTest(List<RenterResponseDto> expected) {
+        List<RenterResponseDto> actual = renterRepository.findAllBy(RenterResponseDto.class);
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 
@@ -46,13 +46,13 @@ public class RenterRepositoryTests {
         return Stream.of(
                 Arguments.of(
                         List.of(
-                               new RenterDto("First", "Last", "1234543",
+                               new RenterResponseDto("First", "Last", "1234543",
                                        "2902928", "n@gmail.com"),
-                               new RenterDto("Inokentii", "Inokentiev", "1324543",
+                               new RenterResponseDto("Inokentii", "Inokentiev", "1324543",
                                        "2902929", "m@gmail.com"),
-                                new RenterDto("Alex", "Shaldenko", "2134543",
+                                new RenterResponseDto("Alex", "Shaldenko", "2134543",
                                         "2902930", "l@gmail.com"),
-                                new RenterDto("Peter", "Parker", "2314543",
+                                new RenterResponseDto("Peter", "Parker", "2314543",
                                         "2902931", "k@gmail.com")
                         )
                 )

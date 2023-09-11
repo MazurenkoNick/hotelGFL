@@ -51,7 +51,7 @@ public class AdministratorController {
 
     @GetMapping
     public ResponseEntity<List<ResponseAdministratorDto>> getAll() {
-        List<ResponseAdministratorDto> administratorDtos = administratorService.getAll();
+        List<ResponseAdministratorDto> administratorDtos = administratorService.getAll(ResponseAdministratorDto.class);
         return ResponseEntity.ok(administratorDtos);
     }
 }
