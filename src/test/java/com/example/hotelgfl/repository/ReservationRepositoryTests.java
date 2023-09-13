@@ -1,5 +1,6 @@
 package com.example.hotelgfl.repository;
 
+import com.example.hotelgfl.config.ScheduleConfig;
 import com.example.hotelgfl.dto.ReservationResponseDto;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -86,6 +87,9 @@ public class ReservationRepositoryTests {
         );
     }
 
+    /**
+     * make sure {@link ScheduleConfig#forceCheckout()} was run before this test.
+     */
     @ParameterizedTest
     @MethodSource("getAllNonCheckedOutSource")
     void getAllNonCheckedOutTest(List<ReservationResponseDto> expected) {
