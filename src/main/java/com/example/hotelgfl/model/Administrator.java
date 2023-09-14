@@ -30,7 +30,7 @@ public class Administrator extends User {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Reservation> reservations;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "admin_roles",
             joinColumns = @JoinColumn(name = "administrator_id"),

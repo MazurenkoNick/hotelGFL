@@ -19,10 +19,6 @@ public class Role {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "admin_roles",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "administrator_id"))
+    @ManyToMany(mappedBy = "roles")
     private List<Administrator> administratorList;
 }
