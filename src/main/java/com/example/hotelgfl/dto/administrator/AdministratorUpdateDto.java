@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateAdministratorDto {
+public class AdministratorUpdateDto {
 
     @NotNull
     private Rank rank;

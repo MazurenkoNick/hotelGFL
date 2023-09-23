@@ -1,8 +1,8 @@
 package com.example.hotelgfl.controller;
 
 import com.example.hotelgfl.dto.administrator.AdministratorDto;
-import com.example.hotelgfl.dto.administrator.ResponseAdministratorDto;
-import com.example.hotelgfl.dto.administrator.UpdateAdministratorDto;
+import com.example.hotelgfl.dto.administrator.AdministratorResponseDto;
+import com.example.hotelgfl.dto.administrator.AdministratorUpdateDto;
 import com.example.hotelgfl.service.AdministratorService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -38,20 +38,20 @@ public class AdministratorController {
     @PutMapping("/{email}")
     @PreAuthorize("authentication.name == #email or hasRole('ADMIN')")
     public ResponseEntity<AdministratorDto> update(@PathVariable("email") String email,
-                                                   @Valid @RequestBody UpdateAdministratorDto administratorDto) {
+                                                   @Valid @RequestBody AdministratorUpdateDto administratorDto) {
         AdministratorDto updatedDto = administratorService.update(email, administratorDto);
         return ResponseEntity.ok(updatedDto);
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<ResponseAdministratorDto> get(@PathVariable("email") String email) {
-        ResponseAdministratorDto administratorDto = administratorService.get(email, ResponseAdministratorDto.class);
+    public ResponseEntity<AdministratorResponseDto> get(@PathVariable("email") String email) {
+        AdministratorResponseDto administratorDto = administratorService.get(email, AdministratorResponseDto.class);
         return ResponseEntity.ok(administratorDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<ResponseAdministratorDto>> getAll() {
-        List<ResponseAdministratorDto> administratorDtos = administratorService.getAll(ResponseAdministratorDto.class);
+    public ResponseEntity<List<AdministratorResponseDto>> getAll() {
+        List<AdministratorResponseDto> administratorDtos = administratorService.getAll(AdministratorResponseDto.class);
         return ResponseEntity.ok(administratorDtos);
     }
 }
