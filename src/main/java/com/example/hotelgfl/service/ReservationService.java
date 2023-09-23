@@ -1,9 +1,9 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.ReceiptResponse;
-import com.example.hotelgfl.dto.ReservationDto;
-import com.example.hotelgfl.dto.ReservationResponseDto;
-import com.example.hotelgfl.dto.ReservationUpdateDto;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
+import com.example.hotelgfl.dto.reservation.ReservationDto;
+import com.example.hotelgfl.dto.reservation.ReservationResponseDto;
+import com.example.hotelgfl.dto.reservation.ReservationUpdateDto;
 import com.example.hotelgfl.mapper.ReceiptMapper;
 import com.example.hotelgfl.mapper.ReservationMapper;
 import com.example.hotelgfl.model.*;

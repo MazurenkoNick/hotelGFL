@@ -1,4 +1,4 @@
-package com.example.hotelgfl.dto;
+package com.example.hotelgfl.dto.receipt;
 
 import java.time.LocalDateTime;
 

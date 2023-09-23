@@ -1,7 +1,7 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.AdministratorDto;
-import com.example.hotelgfl.dto.UpdateAdministratorDto;
+import com.example.hotelgfl.dto.administrator.AdministratorDto;
+import com.example.hotelgfl.dto.administrator.UpdateAdministratorDto;
 import com.example.hotelgfl.mapper.AdministratorMapper;
 import com.example.hotelgfl.model.Administrator;
 import com.example.hotelgfl.repository.AdministratorRepository;

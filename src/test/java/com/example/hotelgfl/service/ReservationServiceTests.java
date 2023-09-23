@@ -1,7 +1,8 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.ReservationDto;
-import com.example.hotelgfl.dto.ReservationUpdateDto;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
+import com.example.hotelgfl.dto.reservation.ReservationDto;
+import com.example.hotelgfl.dto.reservation.ReservationUpdateDto;
 import com.example.hotelgfl.model.*;
 import com.example.hotelgfl.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -148,13 +149,13 @@ public class ReservationServiceTests {
     @MethodSource("checkoutTotalPriceSource")
     void checkoutTotalPriceTest(Long id, double expectedTotalSum, Reservation reservation) {
         when(reservationRepository.findByIdFetchDiscounts(anyLong())).thenReturn(Optional.of(reservation));
-        var receipt = reservationService.checkout(id);
+        ReceiptResponse receipt = reservationService.checkout(id);
 
         assertThat(receipt.totalPrice()).isEqualTo(expectedTotalSum);
         assertThat(receipt.id()).isEqualTo(reservation.getId());
         assertThat(receipt.checkIn()).isEqualTo(reservation.getFromDateTime());
         assertThat(receipt.checkOut()).isEqualTo(reservation.getToDateTime());
-        assertThat(receipt.getRenterEmail()).isEqualTo(reservation.getRenter().getEmail());
+        assertThat(receipt.reservationRenterEmail()).isEqualTo(reservation.getRenter().getEmail());
     }
 
     static Stream<Arguments> checkoutTotalPriceSource() {

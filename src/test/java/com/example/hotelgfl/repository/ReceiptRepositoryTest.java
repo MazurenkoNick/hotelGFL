@@ -1,6 +1,6 @@
 package com.example.hotelgfl.repository;
 
-import com.example.hotelgfl.dto.ReceiptResponse;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

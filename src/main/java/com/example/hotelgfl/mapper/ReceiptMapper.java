@@ -1,6 +1,6 @@
 package com.example.hotelgfl.mapper;
 
-import com.example.hotelgfl.dto.ReceiptResponse;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
 import com.example.hotelgfl.model.Receipt;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

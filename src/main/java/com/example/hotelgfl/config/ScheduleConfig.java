@@ -1,6 +1,6 @@
 package com.example.hotelgfl.config;
 
-import com.example.hotelgfl.dto.ReservationResponseDto;
+import com.example.hotelgfl.dto.reservation.ReservationResponseDto;
 import com.example.hotelgfl.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

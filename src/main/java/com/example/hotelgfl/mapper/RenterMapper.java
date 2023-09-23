@@ -1,6 +1,6 @@
 package com.example.hotelgfl.mapper;
 
-import com.example.hotelgfl.dto.RenterDto;
+import com.example.hotelgfl.dto.renter.RenterDto;
 import com.example.hotelgfl.model.Renter;
 import org.mapstruct.Mapper;
 

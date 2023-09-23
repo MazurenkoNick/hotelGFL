@@ -1,7 +1,7 @@
 package com.example.hotelgfl.mapper;
 
-import com.example.hotelgfl.dto.ReservationDto;
-import com.example.hotelgfl.dto.ReservationResponseDto;
+import com.example.hotelgfl.dto.reservation.ReservationDto;
+import com.example.hotelgfl.dto.reservation.ReservationResponseDto;
 import com.example.hotelgfl.model.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

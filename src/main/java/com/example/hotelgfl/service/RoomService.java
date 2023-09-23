@@ -1,6 +1,6 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.RoomDto;
+import com.example.hotelgfl.dto.room.RoomDto;
 import com.example.hotelgfl.mapper.RoomMapper;
 import com.example.hotelgfl.model.Room;
 import com.example.hotelgfl.model.RoomClass;

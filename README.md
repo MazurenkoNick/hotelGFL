@@ -218,7 +218,7 @@ public <T> List<T> getAll(Class<T> dtoType) {
 * `List<RoomDto> getAllFree()` - повернення всіх вільних dto кімнати з бд станом на поточний день.
 Логіка запиту вільних dto кімнат станом на поточний день в RoomRepository:
 ```java
-@Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+@Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
         "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
         "FROM Room r " +
         "WHERE NOT EXISTS (" +
@@ -232,7 +232,7 @@ List<RoomDto> findAllFreeRoomDtos();
 * `List<RoomDto> getAllFree(LocalDate from, LocalDate to)` - повернення всіх вільних dto кімнати з бд на інтервалі `from` та `to` з параметрів методу.
 Логіка запиту вільних dto кімнат за інтервалом в RoomRepository:
 ```java
-@Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+@Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
         "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
         "FROM Room r " +
         "WHERE NOT EXISTS (" +
@@ -248,7 +248,7 @@ List<RoomDto> findAllFreeRoomDtos(LocalDate from, LocalDate to);
   (не враховує поточну резервацію з id = reservationId під час перевірки на доступ по датах).
 Логіка запиту:
 ```java
-@Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+@Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
         "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
         "FROM Room r " +
         "WHERE r.roomNumber = :roomNumber " +

@@ -1,6 +1,6 @@
 package com.example.hotelgfl.controller;
 
-import com.example.hotelgfl.dto.RoomDto;
+import com.example.hotelgfl.dto.room.RoomDto;
 import com.example.hotelgfl.service.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

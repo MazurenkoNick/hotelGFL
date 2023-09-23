@@ -1,4 +1,4 @@
-package com.example.hotelgfl.dto;
+package com.example.hotelgfl.dto.administrator;
 
 import com.example.hotelgfl.model.Rank;
 import jakarta.validation.constraints.*;

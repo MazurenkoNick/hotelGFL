@@ -1,8 +1,8 @@
 package com.example.hotelgfl.controller;
 
-import com.example.hotelgfl.dto.AdministratorDto;
-import com.example.hotelgfl.dto.ResponseAdministratorDto;
-import com.example.hotelgfl.dto.UpdateAdministratorDto;
+import com.example.hotelgfl.dto.administrator.AdministratorDto;
+import com.example.hotelgfl.dto.administrator.ResponseAdministratorDto;
+import com.example.hotelgfl.dto.administrator.UpdateAdministratorDto;
 import com.example.hotelgfl.service.AdministratorService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

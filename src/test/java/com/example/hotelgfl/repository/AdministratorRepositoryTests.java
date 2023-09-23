@@ -1,6 +1,6 @@
 package com.example.hotelgfl.repository;
 
-import com.example.hotelgfl.dto.ResponseAdministratorDto;
+import com.example.hotelgfl.dto.administrator.ResponseAdministratorDto;
 import com.example.hotelgfl.model.Rank;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

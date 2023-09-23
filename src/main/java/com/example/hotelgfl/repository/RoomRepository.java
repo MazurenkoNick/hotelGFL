@@ -1,6 +1,6 @@
 package com.example.hotelgfl.repository;
 
-import com.example.hotelgfl.dto.RoomDto;
+import com.example.hotelgfl.dto.room.RoomDto;
 import com.example.hotelgfl.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,18 +13,18 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     Optional<Room> findByRoomNumber(Long roomNumber);
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r " +
             "WHERE r.roomNumber = :roomNumber")
     Optional<RoomDto> findRoomDtoByNumber(Long roomNumber);
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r")
     List<RoomDto> findAllRoomDtos();
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r " +
             "WHERE NOT EXISTS (" +
@@ -35,7 +35,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     )
     List<RoomDto> findAllFreeRoomDtos();
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r " +
             "WHERE NOT EXISTS (" +
@@ -46,7 +46,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     )
     List<RoomDto> findAllFreeRoomDtos(LocalDate from, LocalDate to);
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r " +
             "WHERE r.roomNumber = :roomNumber " +
@@ -57,7 +57,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "    AND (DATE(res.fromDateTime) <= :to AND DATE(res.toDateTime) >= :from))")
     Optional<RoomDto> findRoomIfFree(Long roomNumber, LocalDate from, LocalDate to);
 
-    @Query("SELECT new com.example.hotelgfl.dto.RoomDto(" +
+    @Query("SELECT new com.example.hotelgfl.dto.room.RoomDto(" +
             "r.roomNumber, r.bedCount, r.dayPrice, r.roomClass.name) " +
             "FROM Room r " +
             "WHERE r.roomNumber = :roomNumber " +

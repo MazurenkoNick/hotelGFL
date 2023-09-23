@@ -1,7 +1,7 @@
 package com.example.hotelgfl.controller;
 
-import com.example.hotelgfl.dto.RenterDto;
-import com.example.hotelgfl.dto.RenterResponseDto;
+import com.example.hotelgfl.dto.renter.RenterDto;
+import com.example.hotelgfl.dto.renter.RenterResponseDto;
 import com.example.hotelgfl.service.RenterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

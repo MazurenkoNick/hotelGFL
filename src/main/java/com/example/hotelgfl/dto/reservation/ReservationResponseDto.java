@@ -1,4 +1,4 @@
-package com.example.hotelgfl.dto;
+package com.example.hotelgfl.dto.reservation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

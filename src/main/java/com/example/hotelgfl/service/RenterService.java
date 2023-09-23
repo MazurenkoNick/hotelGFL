@@ -1,6 +1,6 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.RenterDto;
+import com.example.hotelgfl.dto.renter.RenterDto;
 import com.example.hotelgfl.mapper.RenterMapper;
 import com.example.hotelgfl.model.Renter;
 import com.example.hotelgfl.repository.RenterRepository;

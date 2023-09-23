@@ -1,6 +1,6 @@
 package com.example.hotelgfl.controller;
 
-import com.example.hotelgfl.dto.ReceiptResponse;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
 import com.example.hotelgfl.service.ReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

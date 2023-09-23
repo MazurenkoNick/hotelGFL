@@ -1,6 +1,6 @@
 package com.example.hotelgfl.service;
 
-import com.example.hotelgfl.dto.ReceiptResponse;
+import com.example.hotelgfl.dto.receipt.ReceiptResponse;
 import com.example.hotelgfl.mapper.ReceiptMapper;
 import com.example.hotelgfl.model.Receipt;
 import com.example.hotelgfl.model.Reservation;

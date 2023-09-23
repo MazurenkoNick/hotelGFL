@@ -1,4 +1,4 @@
-package com.example.hotelgfl.dto;
+package com.example.hotelgfl.dto.reservation;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,13 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ReservationUpdateDto {
+public class ReservationDto {
 
     @NotNull
     private LocalDateTime from;
 
     @NotNull
     private LocalDateTime to;
+
+    @NotNull
+    private Long roomNumber;
 
     @NotNull
     private String renterEmail;
