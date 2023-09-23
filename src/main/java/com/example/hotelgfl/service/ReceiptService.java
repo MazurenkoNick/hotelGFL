@@ -18,7 +18,7 @@ public class ReceiptService {
     private final ReceiptMapper receiptMapper;
 
     public ReceiptResponse get(Long id) {
-        return receiptRepository.findReceiptResponseById(id);
+        return receiptRepository.findReceiptById(id, ReceiptResponse.class);
     }
 
     @Transactional

@@ -150,10 +150,10 @@ public class ReservationServiceTests {
         when(reservationRepository.findByIdFetchDiscounts(anyLong())).thenReturn(Optional.of(reservation));
         var receipt = reservationService.checkout(id);
 
-        assertThat(receipt.getTotalPrice()).isEqualTo(expectedTotalSum);
-        assertThat(receipt.getId()).isEqualTo(reservation.getId());
-        assertThat(receipt.getCheckIn()).isEqualTo(reservation.getFromDateTime());
-        assertThat(receipt.getCheckOut()).isEqualTo(reservation.getToDateTime());
+        assertThat(receipt.totalPrice()).isEqualTo(expectedTotalSum);
+        assertThat(receipt.id()).isEqualTo(reservation.getId());
+        assertThat(receipt.checkIn()).isEqualTo(reservation.getFromDateTime());
+        assertThat(receipt.checkOut()).isEqualTo(reservation.getToDateTime());
         assertThat(receipt.getRenterEmail()).isEqualTo(reservation.getRenter().getEmail());
     }
 

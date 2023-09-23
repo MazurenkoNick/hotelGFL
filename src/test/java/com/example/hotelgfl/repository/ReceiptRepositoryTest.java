@@ -21,7 +21,7 @@ public class ReceiptRepositoryTest {
     @ParameterizedTest
     @MethodSource("findReceiptResponseByIdSource")
     void findReceiptResponseByIdTest(Long id, ReceiptResponse expected) {
-        var actual = receiptRepository.findReceiptResponseById(id);
+        var actual = receiptRepository.findReceiptById(id, ReceiptResponse.class);
         assertThat(actual).isEqualTo(expected);
     }
 

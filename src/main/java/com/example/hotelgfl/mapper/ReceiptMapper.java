@@ -11,7 +11,7 @@ public interface ReceiptMapper {
 
     @Mappings({
             @Mapping(target = "reservationId", source = "reservation.id"),
-            @Mapping(target = "renterEmail", source = "reservation.renter.email")
+            @Mapping(target = "reservationRenterEmail", source = "reservation.renter.email")
     })
     ReceiptResponse entityToReceiptResponse(Receipt receipt);
 }

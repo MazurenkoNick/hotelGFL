@@ -1,21 +1,8 @@
 package com.example.hotelgfl.dto;
 
-import lombok.*;
-
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
-@Getter
-@Setter
-public class ReceiptResponse {
+public record ReceiptResponse(Long id, LocalDateTime checkIn, LocalDateTime checkOut, Long reservationId,
+                              double totalPrice, String reservationRenterEmail) {
 
-    private Long id;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
-    private Long reservationId;
-    private double totalPrice;
-    private String renterEmail;
 }
